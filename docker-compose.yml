@@ -9,9 +9,6 @@ services:
     stdin_open: true
     restart: "unless-stopped"
 
-    volumes:
-      - 
-
     ports:
       - 8080:80
   api:
