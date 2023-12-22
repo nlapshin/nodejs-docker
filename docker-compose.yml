@@ -11,5 +11,8 @@ services:
 
     ports:
       - 8080:80
+
   api:
     build: .
+    ports:
+      - 4000:4000
