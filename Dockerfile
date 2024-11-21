@@ -5,18 +5,49 @@ FROM node:alpine
 # Просто сложит в корень, если не укажу WORKDIR
 WORKDIR /usr/src/app
 
-# Копируем внутрь образа package.json
+# COPY ./ ./
+
+# 1. кэш
+# 2. Явно указать, что мы копируем внутрь.
+
+# package.json package-lock.json
 COPY package*.json ./
-# Внутри образа запускаем команду по установки
+# Формируем папку node_modules
 RUN npm ci
 
-# Будем собирать наше ПО
 COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build
 
-# Прописать команду, которая будет выполняться при старте нашего образа.
+RUN npm prune
+
 CMD [ "node", "./build/index.js" ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # Копируем внутрь образа package.json
+# COPY package*.json ./
+# # Внутри образа запускаем команду по установки
+# RUN npm ci
+
+# # Будем собирать наше ПО
+# COPY tsconfig.json ./
+# COPY src ./src
+# RUN npm run build
+
+# Прописать команду, которая будет выполняться при старте нашего образа.
+# CMD [ "node", "./build/index.js" ]
 
 
 
